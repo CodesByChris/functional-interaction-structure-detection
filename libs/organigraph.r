@@ -254,7 +254,7 @@ plot_role_network <- function(role_network,
 benchmark_scenario <- function(role_ensemble, measure, n_samples = 10000,
                                n_cores = 1) {
 
-  # Define helper function run in parallel processes
+  # Define helper function run in parallel
   boot <- function(adj, measure, directed) {
     mode <- if (directed) "directed" else "undirected"
     return(measure(graph_from_adjacency_matrix(adj, mode = mode)))

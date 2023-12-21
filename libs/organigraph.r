@@ -291,18 +291,19 @@ plot_role_network <- function(role_network,
 }
 
 
-#' Bootstraps measure by sampling n_samples networks from the role_ensemble.
+#' Bootstraps measure by sampling networks from role_ensemble.
 #'
-#' @param role_ensemble ...
-#' @param measure ...
-#' @param n_samples ...
-#' @param n_cores ...
-#' @returns ...
+#' @param role_ensemble BCCM ensemble from which to sample networks.
+#' @param measure The measure to bootstrap. It must be a function taking 1 arg,
+#'   an igraph::graph.
+#' @param n_samples Number of networks to sample.
+#' @param n_cores Number of cores for parallel execution.
+#' @returns The bootstrapped values as a vector of length `n_samples`.
 #' @export
 benchmark_scenario <- function(role_ensemble, measure, n_samples = 10000,
                                n_cores = 1) {
 
-  # Define helper function run in parallel
+  # Helper function
   boot <- function(adj, measure, directed) {
     mode <- if (directed) "directed" else "undirected"
     return(measure(graph_from_adjacency_matrix(adj, mode = mode)))

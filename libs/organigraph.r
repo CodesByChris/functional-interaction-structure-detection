@@ -129,12 +129,12 @@ role_network_bccm_norm <- function(role_ensemble, category = NULL) {
   omega_at_random <- 1 / length(roles)
   if (category == "positive")
     # e.g. 2 means twice as many as expected at random
-    categorized_omega <- ifelse(normalized_omega > omega_at_random,
+    categorized_omega <- ifelse(normalized_omega > omega_at_random & normalized_omega != 0,
                                 normalized_omega / omega_at_random, 0)
   else
     # e.g. 2 means half as many as expected at random
-    categorized_omega <- ifelse(normalized_omega < omega_at_random,
-                                normalized_omega / omega_at_random, 0)
+    categorized_omega <- ifelse(normalized_omega < omega_at_random & normalized_omega != 0,
+                                omega_at_random / normalized_omega, 0)
   return(graph_from_adjacency_matrix(categorized_omega, mode = "directed",
                                      weighted = TRUE))
 }

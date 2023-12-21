@@ -18,9 +18,20 @@ library(tidygraph)
 
 #' Detect functional interaction structure with interaction count approach.
 #'
-#' @param network ...
-#' @param roles ...
-#' @returns ...
+#' This approach is introduced in Section 4.1.
+#'
+#' The functional interaction structure is essentially a fully-connected igraph
+#' graph whose nodes are the roles and the edges are weighted by the number of
+#' interactions between the individuals with the corresponding roles in the
+#' original network.
+#'
+#' @param network igraph graph from which to deduce the interaction preferences
+#'   between the roles. The roles can be supplied either as a vertex property
+#'   "roles" or via the second argument roles.
+#' @param roles (Optional) Vector of length `vcount(network)` whose entry i is a
+#'   string specifying the role of vertex i.
+#' @returns Functional interaction structure as an igraph graph whose nodes are
+#'   the roles and edge weights are the interaction counts.
 #' @export
 role_network_counts <- function(network, roles = V(network)$role) {
 

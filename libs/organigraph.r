@@ -16,7 +16,7 @@ library(tidygraph)
 ### Step 1: Interaction Structure Detection
 ################################################################################
 
-#' Detect functional interaction structure with interaction count approach.
+#' Detect functional interaction structure using interaction count approach.
 #'
 #' This approach is introduced in Section 4.1.
 #'
@@ -67,14 +67,23 @@ role_network_counts <- function(network, roles = V(network)$role) {
 }
 
 
-#' Computes the BCCM ensemble with blocks corresponding to roles.
+#' Fit BCCM ensemble with blocks corresponding to roles.
 #'
-#' ...
+#' This function fits a BCCM ensemble as explained in Section 4.4. The fitted
+#' ensemble serves as input (i) for functional interaction structure detection
+#' as explained in Section 4.5 (see `role_network_bccm` and
+#' `role_network_bccm_norm`) and (ii) for interaction structure optimization as
+#' explained in Section 7 (see `benchmark_scenario`).
 #'
-#' @param network ...
-#' @param roles ...
-#' @param ... ...
-#' @returns ...
+#' @param network igraph graph from which to deduce the role interaction
+#'   preferences.
+#' @param roles (Optional) Vector of role names. The entry `roles[i]` is the
+#'   name of node i's role. If the argument is not given, the roles are taken
+#'   from a vertex property `roles` in `network`. If the argument is given, it
+#'   takes precedence over the vertex property.
+#' @param ... Further args that are forwarded unchanged to `ghypernet::bccm`.
+#'   Useful args might be `directed` and `selfloops`.
+#' @returns BCCM ensemble fitted to the given network and roles.
 #' @export
 role_ensemble <- function(network, roles = V(network)$role, ...) {
 

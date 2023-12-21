@@ -18,7 +18,7 @@ library(tidygraph)
 
 #' Detect functional interaction structure as interaction counts.
 #'
-#' This approach is introduced in Section 4.1. An example output is Figure 2.
+#' This approach is introduced in Section 4.1. An example is Figure 2.
 #'
 #' The functional interaction structure is essentially a fully-connected igraph
 #' graph whose nodes are the roles and the edges are weighted by the number of
@@ -107,7 +107,7 @@ role_ensemble <- function(network, roles = V(network)$role, ...) {
 
 #' Detect functional interaction structure as BCCM interaction propensities.
 #'
-#' This approach is explained in Section 4.4. An example output is Figure 3(b).
+#' This approach is explained in Section 4.4. An example is Figure 3(b).
 #'
 #' @param role_ensemble: BCCM ensemble from which to compute the functional
 #'   interaction structure.
@@ -125,15 +125,23 @@ role_network_bccm <- function(role_ensemble) {
 
 #' Detect functional interaction structure as normalized BCCM propensities.
 #'
-#' ...
+#' This approach normalizes the edge weights from `role_network_bccm` across the
+#' out-edges of each role to obtain interaction probabilities for roles. The
+#' approach is explained in Section 4.5. Examples are:
+#' 1. Figure 3(c) for category = NULL.
+#' 2. Figure 5(b) for positive and negative preferences.
 #'
-#' @param role_ensemble ...
-#' @param category ...
-#' @returns ...
+#' @param role_ensemble: BCCM ensemble from which to compute the functional
+#'   interaction structure.
+#' @param category: If NULL, the normalized propensities are the edge weights.
+#'   If "positive" or "negative", the positive or negative interaction
+#'   preferences as explained in Section 5 are the edge weights.
+#' @returns Functional interaction structure as an igraph graph whose nodes are
+#'   the roles and edge weights are the normalized propensities between roles.
 #' @export
 role_network_bccm_norm <- function(role_ensemble, category = NULL) {
 
-  # Normalize omega over out-degrees
+  # Normalize omega over out-edges
   normalize_row <- function(row) if (any(row != 0)) row / sum(row) else row
   normalized_omega <- role_ensemble$blockOmega %>%
     apply(MARGIN = 1, normalize_row) %>%

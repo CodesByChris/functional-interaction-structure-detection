@@ -278,15 +278,16 @@ plot_role_network <- function(role_network,
 
 #' Simplifies its argument.
 #'
-#' ...
+#' Simplifies a list into a vector if its entries are of an atomic type (i.e.
+#' numeric, boolean, etc.).
 #'
-#' @param measurements ...
-#' @returns ...
-.simplify <- function(measurements) {
-  if (is.atomic(measurements[[1]]) && all(sapply(measurements, length) == 1))
-    return(unlist(measurements))
+#' @param values Object to simplify.
+#' @returns Simplified object.
+.simplify <- function(values) {
+  if (is.atomic(values[[1]]) && all(sapply(values, length) == 1))
+    return(unlist(values))
   else
-    return(measurements)
+    return(values)
 }
 
 

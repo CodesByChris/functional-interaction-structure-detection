@@ -16,9 +16,9 @@ library(tidygraph)
 ### Step 1: Interaction Structure Detection
 ################################################################################
 
-#' Detect functional interaction structure using interaction count approach.
+#' Detect functional interaction structure as interaction counts.
 #'
-#' This approach is introduced in Section 4.1.
+#' This approach is introduced in Section 4.1. An example output is Figure 2.
 #'
 #' The functional interaction structure is essentially a fully-connected igraph
 #' graph whose nodes are the roles and the edges are weighted by the number of
@@ -105,23 +105,25 @@ role_ensemble <- function(network, roles = V(network)$role, ...) {
 }
 
 
-#' Detect functional interaction structure with BCCM interaction propensities.
+#' Detect functional interaction structure as BCCM interaction propensities.
 #'
-#' ...
+#' This approach is explained in Section 4.4. An example output is Figure 3(b).
 #'
-#' @param role_ensemble ...
-#' @returns ...
+#' @param role_ensemble: BCCM ensemble from which to compute the functional
+#'   interaction structure.
+#' @returns Functional interaction structure as an igraph graph whose nodes are
+#'   the roles and edge weights are the propensities between the roles.
 #' @export
 role_network_bccm <- function(role_ensemble) {
   #   mode = "directed" because blockOmegas are not symmetric in general even
   #   for undirected interaction networks. The propensity Omega_ij of role i
-  #   depends on i's interactions with all other roles and not only role j.
+  #   depends on i's interactions with all other roles and not only with role j.
   return(graph_from_adjacency_matrix(role_ensemble$blockOmega,
                                      mode = "directed", weighted = TRUE))
 }
 
 
-#' Detect functional interaction structure with normalized BCCM approach.
+#' Detect functional interaction structure as normalized BCCM propensities.
 #'
 #' ...
 #'

@@ -15,8 +15,7 @@ They are written for a system with Ubuntu Linux but work accordingly on other OS
     sudo apt update
     sudo apt install r-base r-cran-devtools r-cran-irkernel jupyter-notebook
     Rscript -e "install.packages(readLines('packages_cran.txt'))"
-    Rscript -e "devtools::install_github('gi0na/r-ghypernet')"
-    Rscript -e "devtools::install_github('sg-dev/potentiality')"
+    Rscript -e "devtools::install_github(readLines('packages_github.txt'))"
     ```
 2. Open `Reproducibility.ipynb`:
     ```bash

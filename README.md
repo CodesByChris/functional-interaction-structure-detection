@@ -1,3 +1,7 @@
+[![GitHub License](https://img.shields.io/github/license/CodesByChris/functional-interaction-structure-detection?label=License)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10601461.svg)](https://doi.org/10.5281/zenodo.10601461)
+
+
 # Detecting the Functional Interaction Structure of Software Development Teams
 
 Welcome to the repository containing the reproducibility scripts for the paper
